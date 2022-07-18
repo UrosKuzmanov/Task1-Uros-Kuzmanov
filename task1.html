@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const vowels = ["a", "e", "i", "o", "u"];
+      let string =
+        "Smart people learn from everything and everyone, average people from their experience, stupid people already, have all the answers";
+      string = removeSpecialChars(string);
+      let tempVal = "";
+      const stringArry = string.split(" ");
+      for (i = 0; i < stringArry.length - 1; i++) {
+        for (j = i + 1; j < stringArry.length; j++) {
+          if (stringArry[i].length < stringArry[j].length) {
+            tempVal = stringArry[j];
+            stringArry[j] = stringArry[i];
+            stringArry[i] = tempVal;
+          }
+        }
+      }
+
+      let result = stringArry[0];
+      let m = 1;
+      while (stringArry[0].length === stringArry[m].length) {
+        if (chekNumOfVowels(result) < chekNumOfVowels(stringArry[m]))
+          result = stringArry[m];
+        m++;
+      }
+
+      console.log(result);
+
+      function chekNumOfVowels(string) {
+        let count = 0;
+        vowels.forEach((item) => {
+          for (let i = 0; i < string.length; i++) {
+            if (
+              item.toLocaleUpperCase() == string.charAt(i).toLocaleUpperCase()
+            )
+              count++;
+          }
+        });
+        return count;
+      }
+
+      function removeSpecialChars(str) {
+        return str
+          .replace(/(?!\w|\s)./g, "")
+          .replace(/\s+/g, " ")
+          .replace(/^(\s*)([\W\w]*)(\b\s*$)/g, "$2");
+      }
+    </script>
+  </body>
+</html>
